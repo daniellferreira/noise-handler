@@ -1,0 +1,19 @@
+{
+  "name": "noise-handler",
+  "version": "1.0.0",
+  "description": "Pacote que implementa técnicas de tratamento de ruído em CRC-8 e Hamming para arquivos codificados",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daniellferreira/noise-handler.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daniellferreira/noise-handler/issues"
+  },
+  "homepage": "https://github.com/daniellferreira/noise-handler#readme"
+}
