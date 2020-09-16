@@ -12,29 +12,32 @@ const [fileName] = process.argv.slice(2)
 try {
     //array de bits usado para salvar encode do arquivo ecc que sera gerado
     const eccBits = []
-    
+
     //leitura de arquivo retorna array de bytes, o array abaixo é usado para armazenar a correspondencia em bits de cada byte
     const bufferInBits = []
 
     const buffer = fs.readFileSync(fileName)
     log('fileSize (bytes):', buffer.length)
-    
+
     let bitCount = 0
     buffer.forEach(byte => {
         const bit = byteToBit(byte)
         bitCount += bit.length
-        bufferInBits.push(bit)
+        bufferInBits.push(...bit.split(''))
     })
     log('fileSize (bits):', bitCount)
 
-    const header = bufferInBits.slice(0, 2)
-    const crc8Header = crc8.encode(header.join(''))
-    eccBits.push(...header, crc8Header)
+    //pega os 16 bits (8 bytes) de cabeçalho
+    const header = bufferInBits.slice(0, 16)    
 
-    console.log(eccBits)
+    const crc8Header = crc8.encode(header)
+
+    eccBits.push(...header, ...crc8Header)
+
+    console.log('header com crc8:',eccBits.join(''))
 
     //TODO: seguir com encode hamming (ir adicionando no eccBits)
-    
+
     //TODO: criar função que converte array de bits em array de bytes
 
     //TODO: gravar array de bytes gerado como arquivo .ecc
