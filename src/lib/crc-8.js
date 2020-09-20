@@ -6,6 +6,11 @@ module.exports.encode = bytes => {
     return processXOR(bitsToEncode).join('').padStart(8, '0').split('')
 }
 
+module.exports.compare = (bitsToCheck, crc8Hash) => {
+    const encoded = this.encode(bitsToCheck)
+    return encoded.equals(crc8Hash)
+}
+
 module.exports.processXOR = processXOR
 
 function processXOR(D) {

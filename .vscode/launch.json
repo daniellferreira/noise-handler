@@ -7,9 +7,10 @@
       {
         "type": "node",
         "request": "launch",
-        "name": "data/alice29.unaria",
+        "name": "encode alice29.unaria",
         "program": "${workspaceFolder}/src/index.js",
         "args": [
+          "encode",
           "data/alice29.unaria"
         ]
       }
