@@ -37,6 +37,38 @@ try {
     console.log('header com crc8:',eccBits.join(''))
 
     //TODO: seguir com encode hamming (ir adicionando no eccBits)
+    for(let i= 16; i< bufferInBits.length; i++){
+        const bitUm = bufferInBits.slice(i,i+1)
+        const bitDois = bufferInBits.slice(i,i+2)
+        const bitTres = bufferInBits.slice(i,i+3)
+        const bitQuatro = bufferInBits.slice(i,i+4)
+
+        if((bitUm+bitDois+bitTres)%2===0){
+            const bitCinco = 0
+        }else{
+            const bitCinco = 1
+        }
+
+        if((bitDois+bitTres+bitQuatro)%2===0){
+            const bitSeis = 0
+        }else{
+            const bitSeis = 1
+        }
+
+        if((bitUm+bitTres+bitQuatro)%2===0){
+            const bitSete = 0
+        }else{
+            const bitSete = 1
+        }
+
+        const bitEncoded = [bitUm, bitDois,bitTres,bitQuatro,bitCinco,bitSeis,bitSete]
+        eccBits.push(bitEncoded)
+    }
+
+    //TODO: fazer o decode do hamming
+    for(let i =25; i< eccBits.length;i++){
+        
+    }
 
     //TODO: criar função que converte array de bits em array de bytes
 
