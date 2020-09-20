@@ -36,6 +36,8 @@ try {
 
     console.log('header com crc8:',eccBits.join(''))
 
+    const ruido = [0001000]
+
     //TODO: seguir com encode hamming (ir adicionando no eccBits)
     for(let i= 16; i< bufferInBits.length; i++){
         const bitUm = bufferInBits.slice(i,i+1)
@@ -61,13 +63,56 @@ try {
             const bitSete = 1
         }
 
-        const bitEncoded = [bitUm, bitDois,bitTres,bitQuatro,bitCinco,bitSeis,bitSete]
+        const bitCompleto = [bitUm, bitDois,bitTres,bitQuatro,bitCinco,bitSeis,bitSete]
+        const bitEncoded =[]
+
+        //Tranfere com ruido *Eu nao sei se o ruido é feito nessa hora ou nao
+        for(let i=0; i<bitCompleto;i++){
+            if((bitCompleto[i] + ruido[i])%2 === 0){
+                bitEncoded.push(0)
+            }else{
+                bitEncoded.push(1)
+            }
+        }
+
         eccBits.push(bitEncoded)
     }
 
     //TODO: fazer o decode do hamming
     for(let i =25; i< eccBits.length;i++){
+        const paridade1Okay=false
+        const paridade2Okay=false
+        const paridade3Okay=false
+
+        const bits123Okay = false
+        const bits234Okay = false
+        const bits134Okay = false
+
+        //Verifica se a primeira paridade esta correta
+        if((eccBits[i][1]+eccBits[i][2]+eccBits[i][3])%2 === eccBits[i][5]){
+            paridade1Okay = true
+        }
+        //Verifica a segunda
+        if((eccBits[i][2]+eccBits[i][3]+eccBits[i][4])%2 === eccBits[i][6]){
+            paridade2Okay=true
+        }
+        //Verifica a terceira
+        if((eccBits[i][1]+eccBits[i][3]+eccBits[i][4])%2 === eccBits[i][7]){
+            paridade3Okay=true
+        }
         
+        if(paridade1Okay){
+            if(paridade2Okay){
+                
+            }
+        }
+            
+        if(paridade2Okay) 
+            bits134Okay = true
+
+        if(paridade3Okay)
+            bits234Okay = true
+
     }
 
     //TODO: criar função que converte array de bits em array de bytes
