@@ -106,7 +106,7 @@ module.exports = (bufferInBits, fileName) => {
         hammingDecodificado.push(bitsToByte(hammingDecodificado[i]))
     }
     
-    const fileOutput = `./out/${fileName}.ecc`
+    const fileOutput = `./out/${fileName}.cod`
     console.log(`file ${fileOutput} size (bytes):`, hammingDecodificado.length)
     console.log(`file ${fileOutput} size (bits):`, hammingDecodificado.length)
 
