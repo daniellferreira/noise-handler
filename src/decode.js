@@ -1,4 +1,5 @@
 const { bitsToByte } = require('./lib/binary')
+
 module.exports = (bufferInBits, fileName) => {
     //verifica se header é válido
     if (!crc8.compare(bufferInBits.slice(0, 16), bufferInBits.slice(16, 25))) {
@@ -102,7 +103,7 @@ module.exports = (bufferInBits, fileName) => {
         }
     }
     for (let i = 0; i < hammingDecodificado.length; i += 8) {
-        hammingDecodificado.push(bitsToByte(hammingDecodificado.slice(i, i + 8)))
+        hammingDecodificado.push(bitsToByte(hammingDecodificado[i]))
     }
     
     const fileOutput = `./out/${fileName}.ecc`
