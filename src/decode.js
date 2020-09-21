@@ -1,4 +1,5 @@
-module.exports = bufferInBits => {
+const { bitsToByte } = require('./lib/binary')
+module.exports = (bufferInBits, fileName) => {
     //verifica se header é válido
     if (!crc8.compare(bufferInBits.slice(0, 16), bufferInBits.slice(16, 25))) {
         throw new Error('Decodificação inválida! O header não é consistente com o byte de verificação.')
@@ -9,9 +10,6 @@ module.exports = bufferInBits => {
         const paridade1Okay = false
         const paridade2Okay = false
         const paridade3Okay = false
-        const bits123Okay = false
-        const bits234Okay = false
-        const bits134Okay = false
         //Verifica se a primeira paridade esta correta bits 1, 2, 3
         if ((bufferInBits[i][0] + bufferInBits[i][1] + bufferInBits[i][2]) % 2 === bufferInBits[i][5]) {
             paridade1Okay = true
@@ -102,9 +100,15 @@ module.exports = bufferInBits => {
                }
            }
         }
-       if (paridade2Okay)
-             bits134Okay = true
-        if (paridade3Okay)
-             bits234Okay = true
-     }
+    }
+    for (let i = 0; i < hammingDecodificado.length; i += 8) {
+        hammingDecodificado.push(bitsToByte(hammingDecodificado.slice(i, i + 8)))
+    }
+    
+    const fileOutput = `./out/${fileName}.ecc`
+    console.log(`file ${fileOutput} size (bytes):`, hammingDecodificado.length)
+    console.log(`file ${fileOutput} size (bits):`, hammingDecodificado.length)
+
+    fs.writeFileSync(fileOutput, Buffer.from(hammingDecodificado))
+    return fileOutput
 }
