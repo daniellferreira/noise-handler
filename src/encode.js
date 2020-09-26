@@ -16,9 +16,6 @@ module.exports = (bufferInBits, fileName) => {
 
     eccBits.push(...header, ...crc8Header)
 
-    // const ruido = [0001000]
-
-    //TODO: seguir com encode hamming (ir adicionando no eccBits)
     for (let i = 16; i < bufferInBits.length; i += 4) {
         const bitUm = parseInt(bufferInBits[i], 10)
         const bitDois = parseInt(bufferInBits[i + 1], 10)
@@ -39,25 +36,15 @@ module.exports = (bufferInBits, fileName) => {
         }
 
         const bitCompleto = [bitUm, bitDois, bitTres, bitQuatro, bitCinco, bitSeis, bitSete].map(elem => elem.toString())
-        // const bitEncoded = []
-
-        //Tranfere com ruido *Eu nao sei se o ruido é feito nessa hora ou nao
-        // for (let i = 0; i < bitCompleto; i++) {
-        //     if ((bitCompleto[i] + ruido[i]) % 2 === 0) {
-        //         bitEncoded.push(0)
-        //     } else {
-        //         bitEncoded.push(1)
-        //     }bitEncoded
-        // }
 
         eccBits.push(...bitCompleto)
     }
-    
-    
+
+
     for (let i = 0; i < eccBits.length; i += 8) {
         eccBytes.push(bitsToByte(eccBits.slice(i, i + 8)))
     }
-    
+
     const fileOutput = `./out/${fileName}.ecc`
     console.log(`file ${fileOutput} size (bytes):`, eccBytes.length)
     console.log(`file ${fileOutput} size (bits):`, eccBits.length)

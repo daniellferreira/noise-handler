@@ -13,6 +13,16 @@
           "encode",
           "data/alice29.unaria"
         ]
+      },
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "decode alice29.ecc",
+        "program": "${workspaceFolder}/src/index.js",
+        "args": [
+          "decode",
+          "out/alice29.ecc"
+        ]
       }
     ]
   }

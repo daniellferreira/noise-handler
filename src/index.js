@@ -17,8 +17,15 @@ const OPERATIONS = Object.freeze({
 
 const [op, filePath] = process.argv.slice(2)
 
-let fileName = filePath.split('/')
-fileName = fileName[fileName.length - 1].split('.')[0]
+if (![OPERATIONS.ENCODE, OPERATIONS.DECODE].includes(op)) throw new Error(`Operação inválida, envie 'encode' ou 'decode'`)
+
+let fileName = ''
+try {
+    fileName = filePath.split('/')
+    fileName = fileName[fileName.length - 1].split('.')[0]
+} catch (err) {
+    throw new Error('Arquivo inválido')
+}
 
 try {
     //leitura de arquivo retorna array de bytes, o array abaixo é usado para armazenar a correspondencia em bits de cada byte
@@ -41,7 +48,7 @@ try {
             decode(bufferInBits, fileName)
             break
         default:
-            throw new Error('Operação inválida')
+            throw new Error(`Operação inválida, envie 'encode' ou 'decode'`)
     }
 
     log(`Operação de ${op} realizada com sucesso. Arquivo gerado: ${outputFile}`)
