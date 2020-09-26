@@ -22,6 +22,8 @@ Para decodificar um arquivo chame o comando abaixo, o arquivo decodificado será
 ```sh
 $ yarn dev decode <file-path>
 ```
+Na decodificação se ocorrer erro no cabeçalho não será possível seguir com o procedimento.
+Se for identificado ruído na decodificação do corpo, haverá tratamento do ruído permitindo a decodificação sem problemas (o usuário será notificado pelo console)
 
 # Exemplos:
 ```sh
