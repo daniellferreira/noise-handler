@@ -1,5 +1,5 @@
 # Noise-handler
-Pacote que implementa técnicas de tratamento de ruído em CRC-8 e Hamming
+Pacote que implementa técnicas de tratamento de ruído com algoritmos CRC-8 e Hamming
 
 # Pré requisitos:
   - Node.js
